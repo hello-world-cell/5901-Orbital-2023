@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "orbital4",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-06-22T05:02:09.274Z"
 }

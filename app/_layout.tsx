@@ -11,6 +11,8 @@ import {Authenticator} from '@aws-amplify/ui-react-native';
 import {getUser} from '../src/graphql/queries';
 import {createUser} from '../src/graphql/mutations';
 import { Image } from 'react-native';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 Amplify.configure(awsconfig);
 
@@ -101,6 +103,8 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   return (
     <>
+        <Provider store={store}>
+
       <Authenticator.Provider>
         <Authenticator>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -114,7 +118,8 @@ function RootLayoutNav() {
       </ThemeProvider>
         </Authenticator>
       </Authenticator.Provider>
-      
+      </Provider>
+
     </>
   );
 }

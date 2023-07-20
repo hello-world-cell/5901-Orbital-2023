@@ -142,15 +142,19 @@ export default function Profile() {
     return(
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
            
-        <ScrollView contentContainerStyle={[styles.scrollViewContent, keyboardVisible && styles.scrollViewContentWithKeyboard]}
-        keyboardShouldPersistTaps="handled">
+        <ScrollView contentContainerStyle={styles.scrollViewContent}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+        showsVerticalScrollIndicator={false}>
+
+
         <View style={styles.container}>
         <View style={styles.signOutButtonContainer}>
     <Text onPress={() => signOut()} style={styles.signOutButton}>Sign out</Text>
   </View>
 
             <View style={styles.inputContainer}>
-                <Text style={{fontWeight: 'bold', fontSize: 25}}> Hello {user?.name} !</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 25}}> Hello {user?.username} !</Text>
             </View>
             <View style={styles.details}>
                 {editMode ? (
@@ -270,6 +274,7 @@ const styles = StyleSheet.create({
     },
     scrollViewContent: {
         flexGrow: 1,
+        paddingBottom: 16,
         justifyContent: 'center',
         alignItems: 'center',
       },
@@ -286,6 +291,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 5,
         marginTop: 5,
+        right: -70,
       },
       selectedImage: {
         width: 200,
@@ -296,6 +302,6 @@ const styles = StyleSheet.create({
     
     
       scrollViewContentWithKeyboard: {
-        paddingBottom: 0, // Adjust the value based on your UI requirements
+        paddingBottom: 50 // Adjust the value based on your UI requirements
       },
   });

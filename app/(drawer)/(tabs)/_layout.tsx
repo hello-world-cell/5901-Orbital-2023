@@ -6,6 +6,10 @@ import Colors from '../../../constants/Colors';
 import { useEffect, useState } from 'react';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {getUser} from '../../../src/graphql/queries';
+
+import { Provider } from 'react-redux';
+import store from '../../../redux/store';
+
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -56,7 +60,7 @@ export default function TabLayout() {
   }, [])
 
   return (
-    
+    <Provider store={store}>
     <Tabs
       screenOptions={({route}) => ({
         tabBarActiveTintColor: '#4BA09B',
@@ -71,7 +75,7 @@ export default function TabLayout() {
             iconName = focused? 'ios-person-sharp' : 'ios-person-outline';
           } else if (route.name === 'start') {
             iconName = focused? 'ios-add-circle-sharp' : 'ios-add-circle-outline';
-          } else if (route.name === 'chat') {
+          } else if (route.name === 'messages') {
             iconName = focused? 'ios-mail-sharp' : 'ios-mail-outline';
           }
 
@@ -121,12 +125,14 @@ export default function TabLayout() {
         }}
       />
        <Tabs.Screen
-        name="chat"
+        name="messages"
         options={{
           title: 'CHAT',
         }}
       />
     </Tabs>
+    </Provider>
+
     
   );
 }
