@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "orbital4",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}

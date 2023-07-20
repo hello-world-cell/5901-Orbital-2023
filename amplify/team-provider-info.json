@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-orbital4-dev-231552-authRole",
+      "UnauthRoleArn": "arn:aws:iam::160200309190:role/amplify-orbital4-dev-231552-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::160200309190:role/amplify-orbital4-dev-231552-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-orbital4-dev-231552-deployment",
+      "UnauthRoleName": "amplify-orbital4-dev-231552-unauthRole",
+      "StackName": "amplify-orbital4-dev-231552",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:160200309190:stack/amplify-orbital4-dev-231552/30fc6fd0-09fd-11ee-b360-025130283f6e",
+      "AmplifyAppId": "d1qi4n08mhhrna"
+    },
+    "categories": {
+      "auth": {
+        "orbital4563557fa": {}
+      },
+      "api": {
+        "orbital4": {}
+      },
+      "storage": {
+        "LearnLasso": {}
+      }
+    }
+  }
+}
