@@ -1,16 +1,15 @@
 import React from 'react';
-import {API, graphqlOperation} from "aws-amplify";
+import {API, graphqlOperation, Auth} from "aws-amplify";
 import { useState, useEffect } from 'react';
 import {listUsers} from '../../../../src/graphql/queries';
 import { useNavigation, usePathname, useLocalSearchParams } from 'expo-router';
 import { FlatList, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import ChatList from '../../../../components/ChatsScreen/ChatList';
 import { createChatRoom, createUserChatRoom } from '../../../../src/graphql/mutations';
-
+import { getCommonChatRoomWithUser } from '../../../../components/ChatsScreen/chatRoomService';
 function Chat() {
  
   const navigation = useNavigation();
-  const { id, name } = useLocalSearchParams<{ id: string; name: string }>();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -18,14 +17,16 @@ function Chat() {
       setUsers(result.data?.listUsers?.items);
     });
   }, [])
- 
 
-  useEffect(() => {
-    navigation.setOptions({title: name})
-  }, [name])
   
   const handleCreateChat = async () => {
     try {
+      //check if we already have a ChatRoom with user
+      const existingChatRoom = await getCommonChatRoomWithUser(users.id);
+      if(existingChatRoom) {
+        navigation.navigate("singleChat", {id: newChatRoom.id});
+        return;
+      }
       // Create a new chat room
       const newChatRoomData = await API.graphql(
         graphqlOperation(createChatRoom, { input: {} })
@@ -63,9 +64,7 @@ function Chat() {
         renderItem={({item}) => <ChatList chat={item} />} >
         
       </FlatList>
-      <TouchableOpacity style={styles.createChatButton} onPress={handleCreateChat}>
-        <Text style={styles.createChatButtonText}>Create New Chat</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 }
@@ -108,3 +107,4 @@ const styles = StyleSheet.create({
 });
 
 export default Chat;
+
