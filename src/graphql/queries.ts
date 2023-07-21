@@ -2,6 +2,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getInvitation = /* GraphQL */ `
+  query GetInvitation($id: ID!) {
+    getInvitation(id: $id) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listInvitations = /* GraphQL */ `
+  query ListInvitations(
+    $filter: ModelInvitationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listInvitations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        status
+        studygroupID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const invitationsByStudygroupID = /* GraphQL */ `
+  query InvitationsByStudygroupID(
+    $studygroupID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelInvitationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    invitationsByStudygroupID(
+      studygroupID: $studygroupID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        status
+        studygroupID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getStudyGroup = /* GraphQL */ `
   query GetStudyGroup($id: ID!) {
     getStudyGroup(id: $id) {
@@ -10,6 +73,11 @@ export const getStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -29,6 +97,7 @@ export const listStudyGroups = /* GraphQL */ `
         icon
         members
         userID
+        isActive
         createdAt
         updatedAt
         __typename
@@ -59,6 +128,7 @@ export const studyGroupsByUserID = /* GraphQL */ `
         icon
         members
         userID
+        isActive
         createdAt
         updatedAt
         __typename

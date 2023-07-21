@@ -2,25 +2,23 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateStudyGroupInput = {
+export type CreateInvitationInput = {
   id?: string | null,
-  name?: string | null,
-  icon?: string | null,
-  members: Array< string | null >,
   userID: string,
+  status: string,
+  studygroupID: string,
 };
 
-export type ModelStudyGroupConditionInput = {
-  name?: ModelStringInput | null,
-  icon?: ModelStringInput | null,
-  members?: ModelStringInput | null,
+export type ModelInvitationConditionInput = {
   userID?: ModelIDInput | null,
-  and?: Array< ModelStudyGroupConditionInput | null > | null,
-  or?: Array< ModelStudyGroupConditionInput | null > | null,
-  not?: ModelStudyGroupConditionInput | null,
+  status?: ModelStringInput | null,
+  studygroupID?: ModelIDInput | null,
+  and?: Array< ModelInvitationConditionInput | null > | null,
+  or?: Array< ModelInvitationConditionInput | null > | null,
+  not?: ModelInvitationConditionInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -60,7 +58,7 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -76,6 +74,54 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type Invitation = {
+  __typename: "Invitation",
+  id: string,
+  userID: string,
+  status: string,
+  studygroupID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateInvitationInput = {
+  id: string,
+  userID?: string | null,
+  status?: string | null,
+  studygroupID?: string | null,
+};
+
+export type DeleteInvitationInput = {
+  id: string,
+};
+
+export type CreateStudyGroupInput = {
+  id?: string | null,
+  name?: string | null,
+  icon?: string | null,
+  members: Array< string | null >,
+  userID: string,
+  isActive?: boolean | null,
+};
+
+export type ModelStudyGroupConditionInput = {
+  name?: ModelStringInput | null,
+  icon?: ModelStringInput | null,
+  members?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  isActive?: ModelBooleanInput | null,
+  and?: Array< ModelStudyGroupConditionInput | null > | null,
+  or?: Array< ModelStudyGroupConditionInput | null > | null,
+  not?: ModelStudyGroupConditionInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type StudyGroup = {
   __typename: "StudyGroup",
   id: string,
@@ -83,8 +129,16 @@ export type StudyGroup = {
   icon?: string | null,
   members: Array< string | null >,
   userID: string,
+  isActive?: boolean | null,
+  Invitations?: ModelInvitationConnection | null,
   createdAt: string,
   updatedAt: string,
+};
+
+export type ModelInvitationConnection = {
+  __typename: "ModelInvitationConnection",
+  items:  Array<Invitation | null >,
+  nextToken?: string | null,
 };
 
 export type UpdateStudyGroupInput = {
@@ -93,6 +147,7 @@ export type UpdateStudyGroupInput = {
   icon?: string | null,
   members?: Array< string | null > | null,
   userID?: string | null,
+  isActive?: boolean | null,
 };
 
 export type DeleteStudyGroupInput = {
@@ -381,15 +436,14 @@ export type DeleteUserChatRoomInput = {
   id: string,
 };
 
-export type ModelStudyGroupFilterInput = {
+export type ModelInvitationFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  icon?: ModelStringInput | null,
-  members?: ModelStringInput | null,
   userID?: ModelIDInput | null,
-  and?: Array< ModelStudyGroupFilterInput | null > | null,
-  or?: Array< ModelStudyGroupFilterInput | null > | null,
-  not?: ModelStudyGroupFilterInput | null,
+  status?: ModelStringInput | null,
+  studygroupID?: ModelIDInput | null,
+  and?: Array< ModelInvitationFilterInput | null > | null,
+  or?: Array< ModelInvitationFilterInput | null > | null,
+  not?: ModelInvitationFilterInput | null,
 };
 
 export enum ModelSortDirection {
@@ -397,6 +451,18 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
+
+export type ModelStudyGroupFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  icon?: ModelStringInput | null,
+  members?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  isActive?: ModelBooleanInput | null,
+  and?: Array< ModelStudyGroupFilterInput | null > | null,
+  or?: Array< ModelStudyGroupFilterInput | null > | null,
+  not?: ModelStudyGroupFilterInput | null,
+};
 
 export type ModelChatRoomFilterInput = {
   id?: ModelIDInput | null,
@@ -472,14 +538,13 @@ export type ModelUserChatRoomFilterInput = {
   not?: ModelUserChatRoomFilterInput | null,
 };
 
-export type ModelSubscriptionStudyGroupFilterInput = {
+export type ModelSubscriptionInvitationFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  icon?: ModelSubscriptionStringInput | null,
-  members?: ModelSubscriptionStringInput | null,
   userID?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionStudyGroupFilterInput | null > | null,
-  or?: Array< ModelSubscriptionStudyGroupFilterInput | null > | null,
+  status?: ModelSubscriptionStringInput | null,
+  studygroupID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionInvitationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionInvitationFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -510,6 +575,22 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionStudyGroupFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  icon?: ModelSubscriptionStringInput | null,
+  members?: ModelSubscriptionStringInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  isActive?: ModelSubscriptionBooleanInput | null,
+  and?: Array< ModelSubscriptionStudyGroupFilterInput | null > | null,
+  or?: Array< ModelSubscriptionStudyGroupFilterInput | null > | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
 };
 
 export type ModelSubscriptionChatRoomFilterInput = {
@@ -579,6 +660,57 @@ export type ModelSubscriptionUserChatRoomFilterInput = {
   or?: Array< ModelSubscriptionUserChatRoomFilterInput | null > | null,
 };
 
+export type CreateInvitationMutationVariables = {
+  input: CreateInvitationInput,
+  condition?: ModelInvitationConditionInput | null,
+};
+
+export type CreateInvitationMutation = {
+  createInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateInvitationMutationVariables = {
+  input: UpdateInvitationInput,
+  condition?: ModelInvitationConditionInput | null,
+};
+
+export type UpdateInvitationMutation = {
+  updateInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteInvitationMutationVariables = {
+  input: DeleteInvitationInput,
+  condition?: ModelInvitationConditionInput | null,
+};
+
+export type DeleteInvitationMutation = {
+  deleteInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateStudyGroupMutationVariables = {
   input: CreateStudyGroupInput,
   condition?: ModelStudyGroupConditionInput | null,
@@ -592,6 +724,11 @@ export type CreateStudyGroupMutation = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -610,6 +747,11 @@ export type UpdateStudyGroupMutation = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -628,6 +770,11 @@ export type DeleteStudyGroupMutation = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1113,6 +1260,68 @@ export type DeleteUserChatRoomMutation = {
   } | null,
 };
 
+export type GetInvitationQueryVariables = {
+  id: string,
+};
+
+export type GetInvitationQuery = {
+  getInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListInvitationsQueryVariables = {
+  filter?: ModelInvitationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListInvitationsQuery = {
+  listInvitations?:  {
+    __typename: "ModelInvitationConnection",
+    items:  Array< {
+      __typename: "Invitation",
+      id: string,
+      userID: string,
+      status: string,
+      studygroupID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type InvitationsByStudygroupIDQueryVariables = {
+  studygroupID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelInvitationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type InvitationsByStudygroupIDQuery = {
+  invitationsByStudygroupID?:  {
+    __typename: "ModelInvitationConnection",
+    items:  Array< {
+      __typename: "Invitation",
+      id: string,
+      userID: string,
+      status: string,
+      studygroupID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetStudyGroupQueryVariables = {
   id: string,
 };
@@ -1125,6 +1334,11 @@ export type GetStudyGroupQuery = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1146,6 +1360,7 @@ export type ListStudyGroupsQuery = {
       icon?: string | null,
       members: Array< string | null >,
       userID: string,
+      isActive?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1171,6 +1386,7 @@ export type StudyGroupsByUserIDQuery = {
       icon?: string | null,
       members: Array< string | null >,
       userID: string,
+      isActive?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1610,6 +1826,54 @@ export type UserChatRoomsByUserIdQuery = {
   } | null,
 };
 
+export type OnCreateInvitationSubscriptionVariables = {
+  filter?: ModelSubscriptionInvitationFilterInput | null,
+};
+
+export type OnCreateInvitationSubscription = {
+  onCreateInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateInvitationSubscriptionVariables = {
+  filter?: ModelSubscriptionInvitationFilterInput | null,
+};
+
+export type OnUpdateInvitationSubscription = {
+  onUpdateInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteInvitationSubscriptionVariables = {
+  filter?: ModelSubscriptionInvitationFilterInput | null,
+};
+
+export type OnDeleteInvitationSubscription = {
+  onDeleteInvitation?:  {
+    __typename: "Invitation",
+    id: string,
+    userID: string,
+    status: string,
+    studygroupID: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateStudyGroupSubscriptionVariables = {
   filter?: ModelSubscriptionStudyGroupFilterInput | null,
 };
@@ -1622,6 +1886,11 @@ export type OnCreateStudyGroupSubscription = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1639,6 +1908,11 @@ export type OnUpdateStudyGroupSubscription = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1656,6 +1930,11 @@ export type OnDeleteStudyGroupSubscription = {
     icon?: string | null,
     members: Array< string | null >,
     userID: string,
+    isActive?: boolean | null,
+    Invitations?:  {
+      __typename: "ModelInvitationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,

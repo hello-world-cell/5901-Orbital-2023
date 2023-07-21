@@ -2,6 +2,51 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateInvitation = /* GraphQL */ `
+  subscription OnCreateInvitation(
+    $filter: ModelSubscriptionInvitationFilterInput
+  ) {
+    onCreateInvitation(filter: $filter) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateInvitation = /* GraphQL */ `
+  subscription OnUpdateInvitation(
+    $filter: ModelSubscriptionInvitationFilterInput
+  ) {
+    onUpdateInvitation(filter: $filter) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteInvitation = /* GraphQL */ `
+  subscription OnDeleteInvitation(
+    $filter: ModelSubscriptionInvitationFilterInput
+  ) {
+    onDeleteInvitation(filter: $filter) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateStudyGroup = /* GraphQL */ `
   subscription OnCreateStudyGroup(
     $filter: ModelSubscriptionStudyGroupFilterInput
@@ -12,6 +57,11 @@ export const onCreateStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -28,6 +78,11 @@ export const onUpdateStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -44,6 +99,11 @@ export const onDeleteStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename

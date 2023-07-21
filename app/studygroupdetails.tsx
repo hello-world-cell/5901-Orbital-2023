@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUsers } from '../redux/actions';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { createInvitation } from '../src/graphql/mutations';
 import { createStudyGroup } from '../src/graphql/mutations';
 import { useNavigation } from 'expo-router';
 
@@ -26,16 +27,35 @@ function StudyGroupCreateForm() {
 
   const handleCreateStudyGroup = async () => {
     try {
+      const user = await Auth.currentAuthenticatedUser();
+      const validSelectedUsers = selectedUsers.filter((user) => user.username);
+      if (validSelectedUsers.length === 0) {
+        // Show an error message indicating that at least one user must be selected
+        Alert.alert('Error', 'Please select at least one user for the study group.');
+        return;
+      }
+      
       const input = {
         name: groupName,
         icon: groupIcon,
         members: selectedUsers.map((user) => user.username),
         // Assuming you have a userID associated with the creator of the study group
-        userID: 'YOUR_USER_ID',
+        userID: user.attributes.sub,
+        isActive: false,
       };
 
       const response = await API.graphql(graphqlOperation(createStudyGroup, { input }));
       console.log('Study group created:', response.data.createStudyGroup);
+
+
+      for (const user of selectedUsers) {
+        const invitationInput = {
+          userID: user.id,
+          status: 'pending',
+          studygroupID: response.data.createStudyGroup.id,
+        };
+        await API.graphql(graphqlOperation(createInvitation, { input: invitationInput }));
+      }
 
       // Reset form fields and selected users
       setGroupName('');
@@ -54,7 +74,7 @@ function StudyGroupCreateForm() {
     <View style={styles.container}>
 
       <TouchableOpacity style={styles.buttonContainer} onPress={handleViewGroups}>
-        <Text> View my Study Groups</Text>
+        <Text> View my Study Groups and Invitations</Text>
       </TouchableOpacity>
 
 

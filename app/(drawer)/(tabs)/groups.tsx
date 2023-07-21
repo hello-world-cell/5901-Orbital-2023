@@ -291,7 +291,7 @@ function Group() {
             style={styles.createGroupButton}
           >
             <Text style={styles.createGroupButtonText}>
-              View Study Groups
+              View Study Groups and Invites
             </Text>
           </TouchableOpacity>
         </View>

@@ -2,6 +2,54 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createInvitation = /* GraphQL */ `
+  mutation CreateInvitation(
+    $input: CreateInvitationInput!
+    $condition: ModelInvitationConditionInput
+  ) {
+    createInvitation(input: $input, condition: $condition) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateInvitation = /* GraphQL */ `
+  mutation UpdateInvitation(
+    $input: UpdateInvitationInput!
+    $condition: ModelInvitationConditionInput
+  ) {
+    updateInvitation(input: $input, condition: $condition) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteInvitation = /* GraphQL */ `
+  mutation DeleteInvitation(
+    $input: DeleteInvitationInput!
+    $condition: ModelInvitationConditionInput
+  ) {
+    deleteInvitation(input: $input, condition: $condition) {
+      id
+      userID
+      status
+      studygroupID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createStudyGroup = /* GraphQL */ `
   mutation CreateStudyGroup(
     $input: CreateStudyGroupInput!
@@ -13,6 +61,11 @@ export const createStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -30,6 +83,11 @@ export const updateStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -47,6 +105,11 @@ export const deleteStudyGroup = /* GraphQL */ `
       icon
       members
       userID
+      isActive
+      Invitations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
