@@ -1,0 +1,13 @@
+{
+  "resourceName": "LearnLasso",
+  "policyUUID": "5a644db0",
+  "bucketName": "learn-lasso",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

@@ -1,0 +1,62 @@
+type Invitation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID!
+  status: String!
+  studygroupID: ID! @index(name: "byStudyGroup")
+}
+
+type StudyGroup @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  icon: String
+  members: [String]!
+  userID: ID! @index(name: "byUser")
+  isActive: Boolean
+  Invitations: [Invitation] @hasMany(indexName: "byStudyGroup", fields: ["id"])
+}
+
+type ChatRoom @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Messages: [Message] @hasMany(indexName: "byChatRoom", fields: ["id"])
+  users: [User] @manyToMany(relationName: "UserChatRoom")
+  LastMessage: Message @hasOne
+}
+
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  text: String!
+  chatroomID: ID! @index(name: "byChatRoom")
+  userID: ID! @index(name: "byUser")
+}
+
+type FriendRequest @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  senderID: ID!
+  receiverID: ID!
+  status: String
+  userID: ID! @index(name: "byUser")
+}
+
+type Post @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String!
+  image: String
+  comment: Int!
+  userID: ID! @index(name: "byUser")
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  username: String!
+  occupation: String
+  image: String!
+  email: String!
+  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+  Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
+  ChatRooms: [ChatRoom] @manyToMany(relationName: "UserChatRoom")
+  FriendRequests: [AWSJSON]
+  friendrequests: [FriendRequest] @hasMany(indexName: "byUser", fields: ["id"])
+  StudyGroups: [StudyGroup] @hasMany(indexName: "byUser", fields: ["id"])
+}
+ 
