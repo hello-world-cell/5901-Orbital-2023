@@ -1,3 +1,13 @@
+type Comment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String!
+  userID: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Users: [User] @manyToMany(relationName: "CommentUser")
+  Posts: [Post] @manyToMany(relationName: "CommentPost")
+}
+
 type Invitation @model @auth(rules: [{allow: public}]) {
   id: ID!
   userID: ID!
@@ -43,6 +53,7 @@ type Post @model @auth(rules: [{allow: public}]) {
   image: String
   comment: Int!
   userID: ID! @index(name: "byUser")
+  comments: [Comment] @manyToMany(relationName: "CommentPost")
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -58,5 +69,6 @@ type User @model @auth(rules: [{allow: public}]) {
   FriendRequests: [AWSJSON]
   friendrequests: [FriendRequest] @hasMany(indexName: "byUser", fields: ["id"])
   StudyGroups: [StudyGroup] @hasMany(indexName: "byUser", fields: ["id"])
+  comments: [Comment] @manyToMany(relationName: "CommentUser")
 }
  
