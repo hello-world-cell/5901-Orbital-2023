@@ -1,6 +1,7 @@
 import {Text, View, Image, StyleSheet} from 'react-native';
 import { Auth } from 'aws-amplify';
 import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 const Message = ({message}) => {
     const [isMe, setIsMe] = useState(false);
@@ -19,7 +20,7 @@ const Message = ({message}) => {
             alignSelf: isMe ? 'flex-end' : 'flex-start',
         }]}>
             <Text>{message.text}</Text>
-            <Text style={styles.time}>{message.createdAt}</Text>
+            <Text style={styles.time}>{moment(message.createdAt).fromNow()}</Text>
 
         </View>
     );
