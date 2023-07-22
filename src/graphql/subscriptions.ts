@@ -2,6 +2,66 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+    onCreateComment(filter: $filter) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+    onUpdateComment(filter: $filter) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+    onDeleteComment(filter: $filter) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
 export const onCreateInvitation = /* GraphQL */ `
   subscription OnCreateInvitation(
     $filter: ModelSubscriptionInvitationFilterInput
@@ -289,6 +349,10 @@ export const onCreatePost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -303,6 +367,10 @@ export const onUpdatePost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -317,6 +385,10 @@ export const onDeletePost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -350,6 +422,10 @@ export const onCreateUser = /* GraphQL */ `
         __typename
       }
       StudyGroups {
+        nextToken
+        __typename
+      }
+      comments {
         nextToken
         __typename
       }
@@ -389,6 +465,10 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -423,6 +503,208 @@ export const onDeleteUser = /* GraphQL */ `
       }
       StudyGroups {
         nextToken
+        __typename
+      }
+      comments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateCommentUser = /* GraphQL */ `
+  subscription OnCreateCommentUser(
+    $filter: ModelSubscriptionCommentUserFilterInput
+  ) {
+    onCreateCommentUser(filter: $filter) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateCommentUser = /* GraphQL */ `
+  subscription OnUpdateCommentUser(
+    $filter: ModelSubscriptionCommentUserFilterInput
+  ) {
+    onUpdateCommentUser(filter: $filter) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteCommentUser = /* GraphQL */ `
+  subscription OnDeleteCommentUser(
+    $filter: ModelSubscriptionCommentUserFilterInput
+  ) {
+    onDeleteCommentUser(filter: $filter) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateCommentPost = /* GraphQL */ `
+  subscription OnCreateCommentPost(
+    $filter: ModelSubscriptionCommentPostFilterInput
+  ) {
+    onCreateCommentPost(filter: $filter) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateCommentPost = /* GraphQL */ `
+  subscription OnUpdateCommentPost(
+    $filter: ModelSubscriptionCommentPostFilterInput
+  ) {
+    onUpdateCommentPost(filter: $filter) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteCommentPost = /* GraphQL */ `
+  subscription OnDeleteCommentPost(
+    $filter: ModelSubscriptionCommentPostFilterInput
+  ) {
+    onDeleteCommentPost(filter: $filter) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
         __typename
       }
       createdAt

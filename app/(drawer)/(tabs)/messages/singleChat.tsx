@@ -50,11 +50,17 @@ const SingleChat = () => {
     }
 
     // Sort the messages in ascending order based on their createdAt timestamp
-  const sortedMessages = chatRoom.Messages.items.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  //const sortedMessages = chatRoom.Messages.items.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  const sortedMessages = chatRoom.Messages?.items
+    ? chatRoom.Messages.items.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    : [];
+
 
     
-  
+    console.log("Rendering Chatroom: ", chatRoom);
     console.log("Rendering Chatroom with messages: ", chatRoom.Messages);
+    console.log("sorted messages: ", sortedMessages);
+
     return(
        
             <View style={{flex: 1}}>

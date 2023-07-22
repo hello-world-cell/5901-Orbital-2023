@@ -2,6 +2,46 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getInvitation = /* GraphQL */ `
   query GetInvitation($id: ID!) {
     getInvitation(id: $id) {
@@ -181,7 +221,6 @@ export const getChatRoom = /* GraphQL */ `
     }
   }
 `;
-
 export const listChatRooms = /* GraphQL */ `
   query ListChatRooms(
     $filter: ModelChatRoomFilterInput
@@ -367,6 +406,10 @@ export const getPost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -455,6 +498,10 @@ export const getUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -476,6 +523,220 @@ export const listUsers = /* GraphQL */ `
         image
         email
         FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getCommentUser = /* GraphQL */ `
+  query GetCommentUser($id: ID!) {
+    getCommentUser(id: $id) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listCommentUsers = /* GraphQL */ `
+  query ListCommentUsers(
+    $filter: ModelCommentUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCommentUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        commentId
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const commentUsersByCommentId = /* GraphQL */ `
+  query CommentUsersByCommentId(
+    $commentId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentUsersByCommentId(
+      commentId: $commentId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        commentId
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const commentUsersByUserId = /* GraphQL */ `
+  query CommentUsersByUserId(
+    $userId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentUsersByUserId(
+      userId: $userId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        commentId
+        userId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getCommentPost = /* GraphQL */ `
+  query GetCommentPost($id: ID!) {
+    getCommentPost(id: $id) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listCommentPosts = /* GraphQL */ `
+  query ListCommentPosts(
+    $filter: ModelCommentPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCommentPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        commentId
+        postId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const commentPostsByCommentId = /* GraphQL */ `
+  query CommentPostsByCommentId(
+    $commentId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentPostsByCommentId(
+      commentId: $commentId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        commentId
+        postId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const commentPostsByPostId = /* GraphQL */ `
+  query CommentPostsByPostId(
+    $postId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentPostsByPostId(
+      postId: $postId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        commentId
+        postId
         createdAt
         updatedAt
         __typename

@@ -2,23 +2,25 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateInvitationInput = {
+export type CreateCommentInput = {
   id?: string | null,
+  content: string,
   userID: string,
-  status: string,
-  studygroupID: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
-export type ModelInvitationConditionInput = {
-  userID?: ModelIDInput | null,
-  status?: ModelStringInput | null,
-  studygroupID?: ModelIDInput | null,
-  and?: Array< ModelInvitationConditionInput | null > | null,
-  or?: Array< ModelInvitationConditionInput | null > | null,
-  not?: ModelInvitationConditionInput | null,
+export type ModelCommentConditionInput = {
+  content?: ModelStringInput | null,
+  userID?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelCommentConditionInput | null > | null,
+  or?: Array< ModelCommentConditionInput | null > | null,
+  not?: ModelCommentConditionInput | null,
 };
 
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -58,7 +60,213 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelStringInput = {
+export type Comment = {
+  __typename: "Comment",
+  id: string,
+  content: string,
+  userID: string,
+  createdAt: string,
+  updatedAt: string,
+  Users?: ModelCommentUserConnection | null,
+  Posts?: ModelCommentPostConnection | null,
+};
+
+export type ModelCommentUserConnection = {
+  __typename: "ModelCommentUserConnection",
+  items:  Array<CommentUser | null >,
+  nextToken?: string | null,
+};
+
+export type CommentUser = {
+  __typename: "CommentUser",
+  id: string,
+  commentId: string,
+  userId: string,
+  comment: Comment,
+  user: User,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type User = {
+  __typename: "User",
+  id: string,
+  name: string,
+  username: string,
+  occupation?: string | null,
+  image: string,
+  email: string,
+  Posts?: ModelPostConnection | null,
+  Messages?: ModelMessageConnection | null,
+  ChatRooms?: ModelUserChatRoomConnection | null,
+  FriendRequests?: Array< string | null > | null,
+  friendrequests?: ModelFriendRequestConnection | null,
+  StudyGroups?: ModelStudyGroupConnection | null,
+  comments?: ModelCommentUserConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPostConnection = {
+  __typename: "ModelPostConnection",
+  items:  Array<Post | null >,
+  nextToken?: string | null,
+};
+
+export type Post = {
+  __typename: "Post",
+  id: string,
+  content: string,
+  image?: string | null,
+  comment: number,
+  userID: string,
+  comments?: ModelCommentPostConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelCommentPostConnection = {
+  __typename: "ModelCommentPostConnection",
+  items:  Array<CommentPost | null >,
+  nextToken?: string | null,
+};
+
+export type CommentPost = {
+  __typename: "CommentPost",
+  id: string,
+  commentId: string,
+  postId: string,
+  comment: Comment,
+  post: Post,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelMessageConnection = {
+  __typename: "ModelMessageConnection",
+  items:  Array<Message | null >,
+  nextToken?: string | null,
+};
+
+export type Message = {
+  __typename: "Message",
+  id: string,
+  text: string,
+  chatroomID: string,
+  userID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelUserChatRoomConnection = {
+  __typename: "ModelUserChatRoomConnection",
+  items:  Array<UserChatRoom | null >,
+  nextToken?: string | null,
+};
+
+export type UserChatRoom = {
+  __typename: "UserChatRoom",
+  id: string,
+  chatRoomId: string,
+  userId: string,
+  chatRoom: ChatRoom,
+  user: User,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ChatRoom = {
+  __typename: "ChatRoom",
+  id: string,
+  Messages?: ModelMessageConnection | null,
+  users?: ModelUserChatRoomConnection | null,
+  LastMessage?: Message | null,
+  createdAt: string,
+  updatedAt: string,
+  chatRoomLastMessageId?: string | null,
+};
+
+export type ModelFriendRequestConnection = {
+  __typename: "ModelFriendRequestConnection",
+  items:  Array<FriendRequest | null >,
+  nextToken?: string | null,
+};
+
+export type FriendRequest = {
+  __typename: "FriendRequest",
+  id: string,
+  senderID: string,
+  receiverID: string,
+  status?: string | null,
+  userID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelStudyGroupConnection = {
+  __typename: "ModelStudyGroupConnection",
+  items:  Array<StudyGroup | null >,
+  nextToken?: string | null,
+};
+
+export type StudyGroup = {
+  __typename: "StudyGroup",
+  id: string,
+  name?: string | null,
+  icon?: string | null,
+  members: Array< string | null >,
+  userID: string,
+  isActive?: boolean | null,
+  Invitations?: ModelInvitationConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelInvitationConnection = {
+  __typename: "ModelInvitationConnection",
+  items:  Array<Invitation | null >,
+  nextToken?: string | null,
+};
+
+export type Invitation = {
+  __typename: "Invitation",
+  id: string,
+  userID: string,
+  status: string,
+  studygroupID: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateCommentInput = {
+  id: string,
+  content?: string | null,
+  userID?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
+
+export type DeleteCommentInput = {
+  id: string,
+};
+
+export type CreateInvitationInput = {
+  id?: string | null,
+  userID: string,
+  status: string,
+  studygroupID: string,
+};
+
+export type ModelInvitationConditionInput = {
+  userID?: ModelIDInput | null,
+  status?: ModelStringInput | null,
+  studygroupID?: ModelIDInput | null,
+  and?: Array< ModelInvitationConditionInput | null > | null,
+  or?: Array< ModelInvitationConditionInput | null > | null,
+  not?: ModelInvitationConditionInput | null,
+};
+
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -72,16 +280,6 @@ export type ModelStringInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
-};
-
-export type Invitation = {
-  __typename: "Invitation",
-  id: string,
-  userID: string,
-  status: string,
-  studygroupID: string,
-  createdAt: string,
-  updatedAt: string,
 };
 
 export type UpdateInvitationInput = {
@@ -122,25 +320,6 @@ export type ModelBooleanInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type StudyGroup = {
-  __typename: "StudyGroup",
-  id: string,
-  name?: string | null,
-  icon?: string | null,
-  members: Array< string | null >,
-  userID: string,
-  isActive?: boolean | null,
-  Invitations?: ModelInvitationConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelInvitationConnection = {
-  __typename: "ModelInvitationConnection",
-  items:  Array<Invitation | null >,
-  nextToken?: string | null,
-};
-
 export type UpdateStudyGroupInput = {
   id: string,
   name?: string | null,
@@ -164,108 +343,6 @@ export type ModelChatRoomConditionInput = {
   or?: Array< ModelChatRoomConditionInput | null > | null,
   not?: ModelChatRoomConditionInput | null,
   chatRoomLastMessageId?: ModelIDInput | null,
-};
-
-export type ChatRoom = {
-  __typename: "ChatRoom",
-  id: string,
-  Messages?: ModelMessageConnection | null,
-  users?: ModelUserChatRoomConnection | null,
-  LastMessage?: Message | null,
-  createdAt: string,
-  updatedAt: string,
-  chatRoomLastMessageId?: string | null,
-};
-
-export type ModelMessageConnection = {
-  __typename: "ModelMessageConnection",
-  items:  Array<Message | null >,
-  nextToken?: string | null,
-};
-
-export type Message = {
-  __typename: "Message",
-  id: string,
-  text: string,
-  chatroomID: string,
-  userID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelUserChatRoomConnection = {
-  __typename: "ModelUserChatRoomConnection",
-  items:  Array<UserChatRoom | null >,
-  nextToken?: string | null,
-};
-
-export type UserChatRoom = {
-  __typename: "UserChatRoom",
-  id: string,
-  chatRoomId: string,
-  userId: string,
-  chatRoom: ChatRoom,
-  user: User,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  name: string,
-  username: string,
-  occupation?: string | null,
-  image: string,
-  email: string,
-  Posts?: ModelPostConnection | null,
-  Messages?: ModelMessageConnection | null,
-  ChatRooms?: ModelUserChatRoomConnection | null,
-  FriendRequests?: Array< string | null > | null,
-  friendrequests?: ModelFriendRequestConnection | null,
-  StudyGroups?: ModelStudyGroupConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelPostConnection = {
-  __typename: "ModelPostConnection",
-  items:  Array<Post | null >,
-  nextToken?: string | null,
-};
-
-export type Post = {
-  __typename: "Post",
-  id: string,
-  content: string,
-  image?: string | null,
-  comment: number,
-  userID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelFriendRequestConnection = {
-  __typename: "ModelFriendRequestConnection",
-  items:  Array<FriendRequest | null >,
-  nextToken?: string | null,
-};
-
-export type FriendRequest = {
-  __typename: "FriendRequest",
-  id: string,
-  senderID: string,
-  receiverID: string,
-  status?: string | null,
-  userID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelStudyGroupConnection = {
-  __typename: "ModelStudyGroupConnection",
-  items:  Array<StudyGroup | null >,
-  nextToken?: string | null,
 };
 
 export type UpdateChatRoomInput = {
@@ -412,6 +489,54 @@ export type DeleteUserInput = {
   id: string,
 };
 
+export type CreateCommentUserInput = {
+  id?: string | null,
+  commentId: string,
+  userId: string,
+};
+
+export type ModelCommentUserConditionInput = {
+  commentId?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  and?: Array< ModelCommentUserConditionInput | null > | null,
+  or?: Array< ModelCommentUserConditionInput | null > | null,
+  not?: ModelCommentUserConditionInput | null,
+};
+
+export type UpdateCommentUserInput = {
+  id: string,
+  commentId?: string | null,
+  userId?: string | null,
+};
+
+export type DeleteCommentUserInput = {
+  id: string,
+};
+
+export type CreateCommentPostInput = {
+  id?: string | null,
+  commentId: string,
+  postId: string,
+};
+
+export type ModelCommentPostConditionInput = {
+  commentId?: ModelIDInput | null,
+  postId?: ModelIDInput | null,
+  and?: Array< ModelCommentPostConditionInput | null > | null,
+  or?: Array< ModelCommentPostConditionInput | null > | null,
+  not?: ModelCommentPostConditionInput | null,
+};
+
+export type UpdateCommentPostInput = {
+  id: string,
+  commentId?: string | null,
+  postId?: string | null,
+};
+
+export type DeleteCommentPostInput = {
+  id: string,
+};
+
 export type CreateUserChatRoomInput = {
   id?: string | null,
   chatRoomId: string,
@@ -434,6 +559,23 @@ export type UpdateUserChatRoomInput = {
 
 export type DeleteUserChatRoomInput = {
   id: string,
+};
+
+export type ModelCommentFilterInput = {
+  id?: ModelIDInput | null,
+  content?: ModelStringInput | null,
+  userID?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelCommentFilterInput | null > | null,
+  or?: Array< ModelCommentFilterInput | null > | null,
+  not?: ModelCommentFilterInput | null,
+};
+
+export type ModelCommentConnection = {
+  __typename: "ModelCommentConnection",
+  items:  Array<Comment | null >,
+  nextToken?: string | null,
 };
 
 export type ModelInvitationFilterInput = {
@@ -529,6 +671,24 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
+export type ModelCommentUserFilterInput = {
+  id?: ModelIDInput | null,
+  commentId?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  and?: Array< ModelCommentUserFilterInput | null > | null,
+  or?: Array< ModelCommentUserFilterInput | null > | null,
+  not?: ModelCommentUserFilterInput | null,
+};
+
+export type ModelCommentPostFilterInput = {
+  id?: ModelIDInput | null,
+  commentId?: ModelIDInput | null,
+  postId?: ModelIDInput | null,
+  and?: Array< ModelCommentPostFilterInput | null > | null,
+  or?: Array< ModelCommentPostFilterInput | null > | null,
+  not?: ModelCommentPostFilterInput | null,
+};
+
 export type ModelUserChatRoomFilterInput = {
   id?: ModelIDInput | null,
   chatRoomId?: ModelIDInput | null,
@@ -538,13 +698,14 @@ export type ModelUserChatRoomFilterInput = {
   not?: ModelUserChatRoomFilterInput | null,
 };
 
-export type ModelSubscriptionInvitationFilterInput = {
+export type ModelSubscriptionCommentFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  userID?: ModelSubscriptionIDInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  studygroupID?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionInvitationFilterInput | null > | null,
-  or?: Array< ModelSubscriptionInvitationFilterInput | null > | null,
+  content?: ModelSubscriptionStringInput | null,
+  userID?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCommentFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCommentFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -575,6 +736,15 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionInvitationFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  studygroupID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionInvitationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionInvitationFilterInput | null > | null,
 };
 
 export type ModelSubscriptionStudyGroupFilterInput = {
@@ -652,12 +822,100 @@ export type ModelSubscriptionUserFilterInput = {
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
 
+export type ModelSubscriptionCommentUserFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  commentId?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionCommentUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCommentUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionCommentPostFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  commentId?: ModelSubscriptionIDInput | null,
+  postId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionCommentPostFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCommentPostFilterInput | null > | null,
+};
+
 export type ModelSubscriptionUserChatRoomFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   chatRoomId?: ModelSubscriptionIDInput | null,
   userId?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionUserChatRoomFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserChatRoomFilterInput | null > | null,
+};
+
+export type CreateCommentMutationVariables = {
+  input: CreateCommentInput,
+  condition?: ModelCommentConditionInput | null,
+};
+
+export type CreateCommentMutation = {
+  createComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
+  } | null,
+};
+
+export type UpdateCommentMutationVariables = {
+  input: UpdateCommentInput,
+  condition?: ModelCommentConditionInput | null,
+};
+
+export type UpdateCommentMutation = {
+  updateComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
+  } | null,
+};
+
+export type DeleteCommentMutationVariables = {
+  input: DeleteCommentInput,
+  condition?: ModelCommentConditionInput | null,
+};
+
+export type DeleteCommentMutation = {
+  deleteComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
+  } | null,
 };
 
 export type CreateInvitationMutationVariables = {
@@ -994,6 +1252,10 @@ export type CreatePostMutation = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1012,6 +1274,10 @@ export type UpdatePostMutation = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1030,6 +1296,10 @@ export type DeletePostMutation = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1068,6 +1338,10 @@ export type CreateUserMutation = {
     } | null,
     StudyGroups?:  {
       __typename: "ModelStudyGroupConnection",
+      nextToken?: string | null,
+    } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1110,6 +1384,10 @@ export type UpdateUserMutation = {
       __typename: "ModelStudyGroupConnection",
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1150,6 +1428,220 @@ export type DeleteUserMutation = {
       __typename: "ModelStudyGroupConnection",
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateCommentUserMutationVariables = {
+  input: CreateCommentUserInput,
+  condition?: ModelCommentUserConditionInput | null,
+};
+
+export type CreateCommentUserMutation = {
+  createCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateCommentUserMutationVariables = {
+  input: UpdateCommentUserInput,
+  condition?: ModelCommentUserConditionInput | null,
+};
+
+export type UpdateCommentUserMutation = {
+  updateCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCommentUserMutationVariables = {
+  input: DeleteCommentUserInput,
+  condition?: ModelCommentUserConditionInput | null,
+};
+
+export type DeleteCommentUserMutation = {
+  deleteCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateCommentPostMutationVariables = {
+  input: CreateCommentPostInput,
+  condition?: ModelCommentPostConditionInput | null,
+};
+
+export type CreateCommentPostMutation = {
+  createCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateCommentPostMutationVariables = {
+  input: UpdateCommentPostInput,
+  condition?: ModelCommentPostConditionInput | null,
+};
+
+export type UpdateCommentPostMutation = {
+  updateCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCommentPostMutationVariables = {
+  input: DeleteCommentPostInput,
+  condition?: ModelCommentPostConditionInput | null,
+};
+
+export type DeleteCommentPostMutation = {
+  deleteCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1257,6 +1749,50 @@ export type DeleteUserChatRoomMutation = {
     },
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type GetCommentQueryVariables = {
+  id: string,
+};
+
+export type GetCommentQuery = {
+  getComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
+  } | null,
+};
+
+export type ListCommentsQueryVariables = {
+  filter?: ModelCommentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCommentsQuery = {
+  listComments?:  {
+    __typename: "ModelCommentConnection",
+    items:  Array< {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -1608,6 +2144,10 @@ export type GetPostQuery = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1695,6 +2235,10 @@ export type GetUserQuery = {
       __typename: "ModelStudyGroupConnection",
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1718,6 +2262,208 @@ export type ListUsersQuery = {
       image: string,
       email: string,
       FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetCommentUserQueryVariables = {
+  id: string,
+};
+
+export type GetCommentUserQuery = {
+  getCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListCommentUsersQueryVariables = {
+  filter?: ModelCommentUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCommentUsersQuery = {
+  listCommentUsers?:  {
+    __typename: "ModelCommentUserConnection",
+    items:  Array< {
+      __typename: "CommentUser",
+      id: string,
+      commentId: string,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CommentUsersByCommentIdQueryVariables = {
+  commentId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCommentUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CommentUsersByCommentIdQuery = {
+  commentUsersByCommentId?:  {
+    __typename: "ModelCommentUserConnection",
+    items:  Array< {
+      __typename: "CommentUser",
+      id: string,
+      commentId: string,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CommentUsersByUserIdQueryVariables = {
+  userId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCommentUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CommentUsersByUserIdQuery = {
+  commentUsersByUserId?:  {
+    __typename: "ModelCommentUserConnection",
+    items:  Array< {
+      __typename: "CommentUser",
+      id: string,
+      commentId: string,
+      userId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetCommentPostQueryVariables = {
+  id: string,
+};
+
+export type GetCommentPostQuery = {
+  getCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListCommentPostsQueryVariables = {
+  filter?: ModelCommentPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCommentPostsQuery = {
+  listCommentPosts?:  {
+    __typename: "ModelCommentPostConnection",
+    items:  Array< {
+      __typename: "CommentPost",
+      id: string,
+      commentId: string,
+      postId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CommentPostsByCommentIdQueryVariables = {
+  commentId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCommentPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CommentPostsByCommentIdQuery = {
+  commentPostsByCommentId?:  {
+    __typename: "ModelCommentPostConnection",
+    items:  Array< {
+      __typename: "CommentPost",
+      id: string,
+      commentId: string,
+      postId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CommentPostsByPostIdQueryVariables = {
+  postId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCommentPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CommentPostsByPostIdQuery = {
+  commentPostsByPostId?:  {
+    __typename: "ModelCommentPostConnection",
+    items:  Array< {
+      __typename: "CommentPost",
+      id: string,
+      commentId: string,
+      postId: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1823,6 +2569,75 @@ export type UserChatRoomsByUserIdQuery = {
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateCommentSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentFilterInput | null,
+};
+
+export type OnCreateCommentSubscription = {
+  onCreateComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
+  } | null,
+};
+
+export type OnUpdateCommentSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentFilterInput | null,
+};
+
+export type OnUpdateCommentSubscription = {
+  onUpdateComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
+  } | null,
+};
+
+export type OnDeleteCommentSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentFilterInput | null,
+};
+
+export type OnDeleteCommentSubscription = {
+  onDeleteComment?:  {
+    __typename: "Comment",
+    id: string,
+    content: string,
+    userID: string,
+    createdAt: string,
+    updatedAt: string,
+    Users?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    Posts?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
   } | null,
 };
 
@@ -2144,6 +2959,10 @@ export type OnCreatePostSubscription = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2161,6 +2980,10 @@ export type OnUpdatePostSubscription = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2178,6 +3001,10 @@ export type OnDeletePostSubscription = {
     image?: string | null,
     comment: number,
     userID: string,
+    comments?:  {
+      __typename: "ModelCommentPostConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2215,6 +3042,10 @@ export type OnCreateUserSubscription = {
     } | null,
     StudyGroups?:  {
       __typename: "ModelStudyGroupConnection",
+      nextToken?: string | null,
+    } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2256,6 +3087,10 @@ export type OnUpdateUserSubscription = {
       __typename: "ModelStudyGroupConnection",
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2295,6 +3130,214 @@ export type OnDeleteUserSubscription = {
       __typename: "ModelStudyGroupConnection",
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentUserConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCommentUserSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentUserFilterInput | null,
+};
+
+export type OnCreateCommentUserSubscription = {
+  onCreateCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateCommentUserSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentUserFilterInput | null,
+};
+
+export type OnUpdateCommentUserSubscription = {
+  onUpdateCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteCommentUserSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentUserFilterInput | null,
+};
+
+export type OnDeleteCommentUserSubscription = {
+  onDeleteCommentUser?:  {
+    __typename: "CommentUser",
+    id: string,
+    commentId: string,
+    userId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username: string,
+      occupation?: string | null,
+      image: string,
+      email: string,
+      FriendRequests?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCommentPostSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentPostFilterInput | null,
+};
+
+export type OnCreateCommentPostSubscription = {
+  onCreateCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateCommentPostSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentPostFilterInput | null,
+};
+
+export type OnUpdateCommentPostSubscription = {
+  onUpdateCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteCommentPostSubscriptionVariables = {
+  filter?: ModelSubscriptionCommentPostFilterInput | null,
+};
+
+export type OnDeleteCommentPostSubscription = {
+  onDeleteCommentPost?:  {
+    __typename: "CommentPost",
+    id: string,
+    commentId: string,
+    postId: string,
+    comment:  {
+      __typename: "Comment",
+      id: string,
+      content: string,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    post:  {
+      __typename: "Post",
+      id: string,
+      content: string,
+      image?: string | null,
+      comment: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
   } | null,

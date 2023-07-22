@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     
     createdAt: {
       color: 'grey',
-      marginleft: 10
+      marginleft: 10,
     },
 
     footer: {
