@@ -78,33 +78,11 @@ export default function TweetScreen() {
     if(!post){
         return <Text>Post {id} not found!</Text>
     }
+
     return (
-      <>
-        {/* Display the post details */}
-        <Tweet tweet={post} />
-    
-        {/* Display the comments */}
-        {comments.map((comment) => (
-          <View key={comment.id}>
-            <Text>{comment.content}</Text>
-            {/* Add any other comment details you want to display */}
-          </View>
-        ))}
-    
-        {/* Place the comment input and submission button in a separate View */}
-        <View style={styles.commentContainer}>
-          <TextInput
-            value={commentText}
-            onChangeText={setCommentText}
-            placeholder="Write your comment..."
-            style={styles.commentInput}
-          />
-          <TouchableOpacity style={styles.Button} onPress={handleCommentSubmit}>
-        <Entypo name="paper-plane" size={24} color="#4BA09B" />
-      </TouchableOpacity>
-        </View>
-      </>
+      <Tweet tweet={post} />
     );
+    
     
     
 }
