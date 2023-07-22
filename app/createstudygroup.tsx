@@ -30,6 +30,8 @@ function CreateStudyGroup() {
             dispatch(setSelectedUsers([...selectedUsers, friend]));
           }
         }
+
+        
       };
 
 

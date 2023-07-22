@@ -6,7 +6,7 @@ import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { createInvitation } from '../src/graphql/mutations';
 import { createStudyGroup } from '../src/graphql/mutations';
 import { useNavigation } from 'expo-router';
-
+import { listUsers } from '../src/graphql/queries';
 
 
 
@@ -28,7 +28,7 @@ function StudyGroupCreateForm() {
   const handleCreateStudyGroup = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
-      const validSelectedUsers = selectedUsers.filter((user) => user.username);
+      const validSelectedUsers = selectedUsers/*.filter((user) => user /*&& user.username)*/;
       if (validSelectedUsers.length === 0) {
         // Show an error message indicating that at least one user must be selected
         Alert.alert('Error', 'Please select at least one user for the study group.');
@@ -38,38 +38,58 @@ function StudyGroupCreateForm() {
       const input = {
         name: groupName,
         icon: groupIcon,
-        members: selectedUsers.map((user) => user.username),
+        members: selectedUsers.map((user) => user),
         // Assuming you have a userID associated with the creator of the study group
         userID: user.attributes.sub,
         isActive: false,
       };
 
+
       const response = await API.graphql(graphqlOperation(createStudyGroup, { input }));
       console.log('Study group created:', response.data.createStudyGroup);
 
+      
+          const userResponse = await API.graphql(graphqlOperation(listUsers));
+          const existingUsers = userResponse.data.listUsers.items;
 
-      for (const user of selectedUsers) {
+          console.log("userresponse ",userResponse);
+
+          for (const selectedUser of selectedUsers) {
+
+          const matchedUser = existingUsers.find((user) => user.username === selectedUser);
+          console.log("matchedUser id",matchedUser.id);
+
+        if (matchedUser) {
+          console.log("user id",matchedUser.id);
+
         const invitationInput = {
-          userID: user.id,
+          userID: matchedUser.id,
           status: 'pending',
           studygroupID: response.data.createStudyGroup.id,
         };
-        await API.graphql(graphqlOperation(createInvitation, { input: invitationInput }));
+        console.log('Study ivite input:', invitationInput);
+
+        const invitationResponse = await API.graphql(graphqlOperation(createInvitation, { input: invitationInput }));
+        console.log('Invitation created:', invitationResponse.data.createInvitation);
+      } else {
+        console.log('User with username', user, 'not found.');
       }
+    } 
+    
+    // Reset form fields and selected users
+    setGroupName('');
+    setGroupIcon('');
+    dispatch(setSelectedUsers([]));
 
-      // Reset form fields and selected users
-      setGroupName('');
-      setGroupIcon('');
-      dispatch(setSelectedUsers([]));
-
-      // Show success message
-      Alert.alert('Success', 'Study group created successfully!');
-    } catch (error) {
-      console.error('Error creating study group:', error);
-      // Show error message
-      Alert.alert('Error', 'Failed to create study group. Please try again.');
+    // Show success message
+    Alert.alert('Success', 'Study group created successfully!');
+    
+  } catch (error) {
+      console.error('Error fetching user:', error);
+      console.log('User with username',user, 'not found.');
     }
-  };
+  }
+
   return (
     <View style={styles.container}>
 
