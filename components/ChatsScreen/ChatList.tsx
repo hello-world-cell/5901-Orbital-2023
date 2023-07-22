@@ -4,9 +4,29 @@ import { useNavigation } from '@react-navigation/native';
 import {API, graphqlOperation, Auth} from "aws-amplify";
 import { createChatRoom, createUserChatRoom } from '../../src/graphql/mutations';
 import {getCommonChatRoomWithUser} from './chatRoomService';
+import { useState, useEffect } from 'react';
+import { getChatRoom } from '../../src/graphql/queries';
 //change chat.user.image
 const ChatList = ({chat}) => {
     const navigation = useNavigation();
+    const [lastMessage, setLastMessage] = useState(null);
+
+    useEffect(() => {
+      const fetchLastMessage = async () => {
+        try {
+          const existingChatRoom = await getCommonChatRoomWithUser(chat.id);
+          const chatRoomData = await API.graphql(
+            graphqlOperation(getChatRoom, { id: existingChatRoom?.chatRoom?.id })
+          );
+          const lastMessage = chatRoomData.data.getChatRoom?.LastMessage;
+          setLastMessage(lastMessage);
+        } catch (error) {
+          console.error('Error fetching last message:', error);
+        }
+      };
+  
+      fetchLastMessage();
+    }, []);
 
     const handlePress = async () => {
       console.log('Clicked chat id:', chat.id);
@@ -84,7 +104,7 @@ const ChatList = ({chat}) => {
               style={styles.image} />
             <View style={styles.content}>
                 <Text style={styles.name}>@{chat?.username}</Text>
-                <Text style={styles.display} numberOfLines={1}>{chat.LastMessage?.text}</Text>
+                <Text style={styles.display} numberOfLines={1}>{lastMessage ? lastMessage?.text : 'No messages yet'}</Text>
             </View>
         </Pressable>
 
