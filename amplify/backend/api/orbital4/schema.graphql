@@ -1,3 +1,22 @@
+type StudySession @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  time: String
+  location: String
+  todo: String
+  studygroupID: ID! @index(name: "byStudyGroup")
+  date: AWSDate
+}
+
+type Comment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String!
+  userID: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  Users: [User] @manyToMany(relationName: "CommentUser")
+  Posts: [Post] @manyToMany(relationName: "CommentPost")
+}
+
 type Invitation @model @auth(rules: [{allow: public}]) {
   id: ID!
   userID: ID!
@@ -13,6 +32,7 @@ type StudyGroup @model @auth(rules: [{allow: public}]) {
   userID: ID! @index(name: "byUser")
   isActive: Boolean
   Invitations: [Invitation] @hasMany(indexName: "byStudyGroup", fields: ["id"])
+  StudySessions: [StudySession] @hasMany(indexName: "byStudyGroup", fields: ["id"])
 }
 
 type ChatRoom @model @auth(rules: [{allow: public}]) {
@@ -43,6 +63,7 @@ type Post @model @auth(rules: [{allow: public}]) {
   image: String
   comment: Int!
   userID: ID! @index(name: "byUser")
+  comments: [Comment] @manyToMany(relationName: "CommentPost")
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -58,5 +79,6 @@ type User @model @auth(rules: [{allow: public}]) {
   FriendRequests: [AWSJSON]
   friendrequests: [FriendRequest] @hasMany(indexName: "byUser", fields: ["id"])
   StudyGroups: [StudyGroup] @hasMany(indexName: "byUser", fields: ["id"])
+  comments: [Comment] @manyToMany(relationName: "CommentUser")
 }
  

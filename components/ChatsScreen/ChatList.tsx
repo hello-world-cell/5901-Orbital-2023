@@ -4,40 +4,67 @@ import { useNavigation } from '@react-navigation/native';
 import {API, graphqlOperation, Auth} from "aws-amplify";
 import { createChatRoom, createUserChatRoom } from '../../src/graphql/mutations';
 import {getCommonChatRoomWithUser} from './chatRoomService';
+import { useState, useEffect } from 'react';
+import { getChatRoom } from '../../src/graphql/queries';
 //change chat.user.image
 const ChatList = ({chat}) => {
     const navigation = useNavigation();
+    const [lastMessage, setLastMessage] = useState(null);
+
+    useEffect(() => {
+      const fetchLastMessage = async () => {
+        try {
+          const existingChatRoom = await getCommonChatRoomWithUser(chat.id);
+          const chatRoomData = await API.graphql(
+            graphqlOperation(getChatRoom, { id: existingChatRoom?.chatRoom?.id })
+          );
+          const lastMessage = chatRoomData.data.getChatRoom?.LastMessage;
+          setLastMessage(lastMessage);
+        } catch (error) {
+          console.error('Error fetching last message:', error);
+        }
+      };
+  
+      fetchLastMessage();
+    }, []);
 
     const handlePress = async () => {
+      console.log('Clicked chat id:', chat.id);
         const existingChatRoom = await getCommonChatRoomWithUser(chat.id);
+        console.log('Existing chat room:', existingChatRoom);
+        console.log('Existing chat room ID:', existingChatRoom?.chatRoom?.id);
+        //console.log('Existing chat room ID:', existingChatRoom.id);
     
         if (existingChatRoom) {
-          navigation.navigate('singleChat', { id: existingChatRoom.id });
+          console.log('Navigating to existing chat room with id:', existingChatRoom?.chatRoom?.id);
+          navigation.navigate('singleChat', { id: existingChatRoom?.chatRoom?.id });
         } else {
+          console.log('Creating a new chat room...');
           const newChatRoomData = await API.graphql(
             graphqlOperation(createChatRoom, { input: {} })
           );
           const newChatRoom = newChatRoomData.data.createChatRoom;
+          console.log('New chat room created with id:', newChatRoom.id);
     
           await API.graphql(
             graphqlOperation(createUserChatRoom, {
-              input: { chatRoomID: newChatRoom.id, userID: chat.id },
+              input: { chatRoomId: newChatRoom.id, userId: chat.id },
             })
           );
     
           const authUser = await Auth.currentAuthenticatedUser();
           await API.graphql(
             graphqlOperation(createUserChatRoom, {
-              input: { chatRoomID: newChatRoom.id, userID: authUser.attributes.sub },
+              input: { chatRoomId: newChatRoom.id, userId: authUser.attributes.sub },
             })
           );
-    
+          console.log('Navigating to new chat room with id:', newChatRoom.id);
           navigation.navigate('singleChat', { id: newChatRoom.id });
         }
       };
     //const user = chat.users.items[0].user;
 
-    /*const handlePress = async () => {
+    /* const handlePress = async () => {
         //check if we already have a chatroom with user
         const existingChatRoom = await getCommonChatRoomWithUser(chat.id);
         if(existingChatRoom) {
@@ -77,7 +104,7 @@ const ChatList = ({chat}) => {
               style={styles.image} />
             <View style={styles.content}>
                 <Text style={styles.name}>@{chat?.username}</Text>
-                <Text style={styles.display} numberOfLines={2}>{chat.LastMessage?.text}</Text>
+                <Text style={styles.display} numberOfLines={1}>{lastMessage ? lastMessage?.text : 'No messages yet'}</Text>
             </View>
         </Pressable>
 
@@ -111,7 +138,7 @@ const styles = StyleSheet.create({
     },
 
     display: {
-        color: "gray",
+        color: "grey",
         
     },
 

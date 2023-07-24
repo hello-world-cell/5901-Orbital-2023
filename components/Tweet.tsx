@@ -29,8 +29,8 @@ const Tweet = ({tweet}: TweetProps) => {
         <Text style={styles.content}>{tweet.content}</Text>
         {tweet.image && <Image source={{uri: tweet.image}} style={styles.image} />}
         <View style={styles.footer}>
-            <EvilIcons name='comment' size={22} color='gray' />
-            <Text style={{fontSize: 12, color: 'grey'}}>{tweet.comment}</Text>
+            {/*<EvilIcons name='comment' size={22} color='gray' />*/}
+            {/*<Text style={{fontSize: 12, color: 'grey'}}>{tweet.comment}</Text>*/}
         </View>
       </View>
       </Pressable>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     
     createdAt: {
       color: 'grey',
-      marginleft: 10
+      marginleft: 10,
     },
 
     footer: {

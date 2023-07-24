@@ -2,6 +2,129 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createStudySession = /* GraphQL */ `
+  mutation CreateStudySession(
+    $input: CreateStudySessionInput!
+    $condition: ModelStudySessionConditionInput
+  ) {
+    createStudySession(input: $input, condition: $condition) {
+      id
+      time
+      location
+      todo
+      studygroupID
+      date
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateStudySession = /* GraphQL */ `
+  mutation UpdateStudySession(
+    $input: UpdateStudySessionInput!
+    $condition: ModelStudySessionConditionInput
+  ) {
+    updateStudySession(input: $input, condition: $condition) {
+      id
+      time
+      location
+      todo
+      studygroupID
+      date
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteStudySession = /* GraphQL */ `
+  mutation DeleteStudySession(
+    $input: DeleteStudySessionInput!
+    $condition: ModelStudySessionConditionInput
+  ) {
+    deleteStudySession(input: $input, condition: $condition) {
+      id
+      time
+      location
+      todo
+      studygroupID
+      date
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      content
+      userID
+      createdAt
+      updatedAt
+      Users {
+        nextToken
+        __typename
+      }
+      Posts {
+        nextToken
+        __typename
+      }
+      __typename
+    }
+  }
+`;
 export const createInvitation = /* GraphQL */ `
   mutation CreateInvitation(
     $input: CreateInvitationInput!
@@ -66,6 +189,10 @@ export const createStudyGroup = /* GraphQL */ `
         nextToken
         __typename
       }
+      StudySessions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -88,6 +215,10 @@ export const updateStudyGroup = /* GraphQL */ `
         nextToken
         __typename
       }
+      StudySessions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -107,6 +238,10 @@ export const deleteStudyGroup = /* GraphQL */ `
       userID
       isActive
       Invitations {
+        nextToken
+        __typename
+      }
+      StudySessions {
         nextToken
         __typename
       }
@@ -319,6 +454,10 @@ export const createPost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -336,6 +475,10 @@ export const updatePost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -353,6 +496,10 @@ export const deletePost = /* GraphQL */ `
       image
       comment
       userID
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -389,6 +536,10 @@ export const createUser = /* GraphQL */ `
         __typename
       }
       StudyGroups {
+        nextToken
+        __typename
+      }
+      comments {
         nextToken
         __typename
       }
@@ -431,6 +582,10 @@ export const updateUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      comments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -468,6 +623,214 @@ export const deleteUser = /* GraphQL */ `
       }
       StudyGroups {
         nextToken
+        __typename
+      }
+      comments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createCommentUser = /* GraphQL */ `
+  mutation CreateCommentUser(
+    $input: CreateCommentUserInput!
+    $condition: ModelCommentUserConditionInput
+  ) {
+    createCommentUser(input: $input, condition: $condition) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateCommentUser = /* GraphQL */ `
+  mutation UpdateCommentUser(
+    $input: UpdateCommentUserInput!
+    $condition: ModelCommentUserConditionInput
+  ) {
+    updateCommentUser(input: $input, condition: $condition) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteCommentUser = /* GraphQL */ `
+  mutation DeleteCommentUser(
+    $input: DeleteCommentUserInput!
+    $condition: ModelCommentUserConditionInput
+  ) {
+    deleteCommentUser(input: $input, condition: $condition) {
+      id
+      commentId
+      userId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        name
+        username
+        occupation
+        image
+        email
+        FriendRequests
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createCommentPost = /* GraphQL */ `
+  mutation CreateCommentPost(
+    $input: CreateCommentPostInput!
+    $condition: ModelCommentPostConditionInput
+  ) {
+    createCommentPost(input: $input, condition: $condition) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateCommentPost = /* GraphQL */ `
+  mutation UpdateCommentPost(
+    $input: UpdateCommentPostInput!
+    $condition: ModelCommentPostConditionInput
+  ) {
+    updateCommentPost(input: $input, condition: $condition) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteCommentPost = /* GraphQL */ `
+  mutation DeleteCommentPost(
+    $input: DeleteCommentPostInput!
+    $condition: ModelCommentPostConditionInput
+  ) {
+    deleteCommentPost(input: $input, condition: $condition) {
+      id
+      commentId
+      postId
+      comment {
+        id
+        content
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      post {
+        id
+        content
+        image
+        comment
+        userID
+        createdAt
+        updatedAt
         __typename
       }
       createdAt

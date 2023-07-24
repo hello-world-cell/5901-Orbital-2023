@@ -1,4 +1,4 @@
-import {API, graphqlOperation, Auth} from 'aws-amplify'
+import {API, graphqlOperation, Auth} from 'aws-amplify';
 
 export const getCommonChatRoomWithUser = async (userID) => {
     const authUser = await Auth.currentAuthenticatedUser();

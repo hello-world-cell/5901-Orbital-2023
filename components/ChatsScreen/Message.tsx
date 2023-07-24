@@ -1,16 +1,26 @@
 import {Text, View, Image, StyleSheet} from 'react-native';
+import { Auth } from 'aws-amplify';
+import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 const Message = ({message}) => {
-    const isSelf = () => {
-        return message.user?.id == 'u1';
-    }
+    const [isMe, setIsMe] = useState(false);
+
+    useEffect(() => {
+        const isSelf = async () => {
+            const authUser = await Auth.currentAuthenticatedUser();
+            setIsMe(message.userID === authUser.attributes.sub);
+        };
+        isSelf();
+    }, [])
+    
     return (
         <View style={[styles.container, {
-            backgroundColor: isSelf() ? '#4BA09B' : 'white',
-            alignSelf: isSelf() ? 'flex-end' : 'flex-start',
+            backgroundColor: isMe ? '#4BA09B' : 'white',
+            alignSelf: isMe ? 'flex-end' : 'flex-start',
         }]}>
             <Text>{message.text}</Text>
-            <Text style={styles.time}>{message.createdAt}</Text>
+            <Text style={styles.time}>{moment(message.createdAt).fromNow()}</Text>
 
         </View>
     );

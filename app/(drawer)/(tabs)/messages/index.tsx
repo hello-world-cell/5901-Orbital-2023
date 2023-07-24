@@ -11,12 +11,32 @@ function Chat() {
  
   const navigation = useNavigation();
   const [users, setUsers] = useState([]);
+  const [authenticatedUserId, setAuthenticatedUserId] = useState(null);
 
   useEffect(() => {
+    // Fetch the authenticated user's ID
+    const fetchAuthenticatedUser = async () => {
+      try {
+        const authUser = await Auth.currentAuthenticatedUser();
+        setAuthenticatedUserId(authUser.attributes.sub);
+      } catch (error) {
+        console.error('Error fetching authenticated user:', error);
+      }
+    };
+
+    fetchAuthenticatedUser();
+  }, []);
+
+  useEffect(() => {
+    // Fetch all users and filter out the authenticated user
     API.graphql(graphqlOperation(listUsers)).then((result) => {
-      setUsers(result.data?.listUsers?.items);
+      const allUsers = result.data?.listUsers?.items;
+      if (allUsers && authenticatedUserId) {
+        const otherUsers = allUsers.filter((user) => user.id !== authenticatedUserId);
+        setUsers(otherUsers);
+      }
     });
-  }, [])
+  }, [authenticatedUserId]);
 
   
   const handleCreateChat = async () => {
@@ -75,6 +95,7 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     paddingVertical: 25,
+    backgroundColor: 'white',
     
   },
   title: {
@@ -107,4 +128,3 @@ const styles = StyleSheet.create({
 });
 
 export default Chat;
-

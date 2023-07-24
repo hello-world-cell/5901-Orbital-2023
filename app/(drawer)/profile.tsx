@@ -159,20 +159,21 @@ export default function Profile() {
             <View style={styles.details}>
                 {editMode ? (
             <>
-              <TextInput
+             
+             {/* <TextInput
               style={styles.input}
               placeholder="Username"
               value={updatedUsername}
               onChangeText={setUpdatedUsername}
-              />
+                />  */}
               
-
+           {/*
               <TextInput
               style={styles.input}
               placeholder="Email"
               value={updatedEmail}
               onChangeText={setUpdatedEmail}
-              />
+              />*/}
 
             <TextInput
                 style={styles.input}

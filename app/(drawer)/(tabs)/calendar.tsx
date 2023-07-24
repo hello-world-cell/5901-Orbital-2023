@@ -1,22 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Modal from 'react-native-modal';
-
+import { listStudySessions } from '../../../src/graphql/queries';
+import { API, graphqlOperation } from 'aws-amplify';
 const { width, height } = Dimensions.get('window');
 
 
 
 export default function TabTwoScreen() {
+
   const [selectedDate, setSelectedDate] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [studySessions, setStudySessions] = useState([]);
+  const [studySessionsWithDates, setStudySessionsWithDates] = useState([]);
 
-  // Define your study schedule data
-  const studyScheduleData = {
-    '2023-06-22': ['Study Session 1', 'Study Session 2'],
-    '2023-06-24': ['Study Session 3'],
-    // Add more study schedule data as needed
+  // Function to fetch study sessions data
+  const fetchStudySessions = async () => {
+    try {
+      const studySessionsData = await API.graphql(graphqlOperation(listStudySessions));
+      const sessions = studySessionsData.data.listStudySessions.items;
+      const sessionsWithDates = sessions.map((session) => ({
+        ...session,
+        date: session.date.substr(0, 10), // Assuming the date is stored as a string like "YYYY-MM-DD"
+      }));
+      setStudySessionsWithDates(sessionsWithDates);
+      setStudySessions(sessions);
+    } catch (error) {
+      console.log('Error fetching study sessions:', error);
+    }
   };
+
+  const getStudySessionsForSelectedDate = () => {
+    return studySessionsWithDates.filter((session) => session.date === selectedDate);
+  };
+  const renderStudySessionsForSelectedDate = () => {
+    const studySessionsForSelectedDate = getStudySessionsForSelectedDate();
+    if (studySessionsForSelectedDate.length === 0) {
+      return <Text>No study sessions for this date.</Text>;
+    } else {
+      return studySessionsForSelectedDate.map((session, index) => (
+        <Text key={index} style={styles.scheduleText}>
+          {session.location} - {session.time}
+        </Text>
+      ));
+    }
+  };
+
+  useEffect(() => {
+    fetchStudySessions();
+  }, []);
 
   // Function to handle date selection
   const handleDateSelect = (date) => {
@@ -43,12 +76,7 @@ export default function TabTwoScreen() {
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Study Schedule for {selectedDate}</Text>
-          {studyScheduleData[selectedDate] &&
-            studyScheduleData[selectedDate].map((schedule, index) => (
-              <Text key={index} style={styles.scheduleText}>
-                {schedule}
-              </Text>
-            ))}
+          {renderStudySessionsForSelectedDate()}
         </View>
       </Modal>
     </View>
